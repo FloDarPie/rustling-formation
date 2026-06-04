@@ -31,6 +31,16 @@ fn build_scores_table(results: &str) -> HashMap<&str, TeamScores> {
         // Keep in mind that goals scored by team 1 will be the number of goals
         // conceded by team 2. Similarly, goals scored by team 2 will be the
         // number of goals conceded by team 1.
+
+        
+        fn update_score(entree : &mut TeamScores, goal_scores: u8, goal_conceded:u8) {
+            entree.goals_conceded+=goal_conceded;
+            entree.goals_scored+=goal_scores
+        }
+        let entree1 = scores.entry(team_1_name).or_default();
+        update_score(entree1, team_1_score, team_2_score);
+        let entree2 = scores.entry(team_2_name).or_default();
+        update_score(entree2, team_2_score, team_1_score);
     }
 
     scores

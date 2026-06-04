@@ -11,6 +11,13 @@ impl PositiveNonzeroInteger {
     fn new(value: i64) -> Result<Self, CreationError> {
         // TODO: This function shouldn't always return an `Ok`.
         // Read the tests below to clarify what should be returned.
+        use crate::CreationError::Negative as Negative;
+        use crate::CreationError::Zero as Zero;
+        if value == 0 {
+            return Err(Zero);
+        } else if value < 0 {
+            return Err(Negative);
+        }
         Ok(Self(value as u64))
     }
 }
